@@ -1,36 +1,29 @@
 package hello.world;
 
-        import io.micronaut.http.HttpResponse;
-        import io.micronaut.http.MediaType;
-        import io.micronaut.http.annotation.*;
-        import org.apache.commons.io.FileUtils;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.*;
+import org.apache.commons.io.FileUtils;
+import javax.inject.Inject;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
-        import java.io.File;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.nio.charset.Charset;
 
-
-@Controller("/student")
+@Controller
 public class StudentController {
 
-    @Get(uri="/", produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<Object> student() throws IOException {
-        String path = "student.json";
-        String fileToString = FileUtils.readFileToString(getFileByFileName(path), Charset.defaultCharset());
-        return HttpResponse.ok(fileToString);
+    @Inject
+    StudentService studentService;
+
+    @Get(uri="/students", produces = MediaType.APPLICATION_JSON)
+    public List<Student> getStudents() {
+        return studentService.getAllStudent();
     }
 
-    @Post(value = "/{name}", consumes = MediaType.APPLICATION_JSON)
-    public HttpResponse<Object> addStudent(@Body String name) throws IOException {
-        return HttpResponse.ok(name);
-    }
-
-
-    private static File getFileByFileName(String fileName) throws IOException {
-        InputStream fileAsStream = StudentController.class.getResourceAsStream("/" + fileName);
-        File file = new File("/tmp/" + fileName);
-        FileUtils.copyInputStreamToFile(fileAsStream, file);
-        return file;
+    @Post(uri = "/student", consumes = MediaType.APPLICATION_JSON)
+    public Student addStudent(@Body Student student ) {
+        studentService.addStudent(student);
+        return student;
     }
 }

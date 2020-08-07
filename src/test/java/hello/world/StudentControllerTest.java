@@ -16,12 +16,16 @@ public class StudentControllerTest {
     RxHttpClient client;
 
     @Test
-    public void test() throws Exception {
-        assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.GET("/student")).status());
+    public void getStudents() {
+        assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.GET("/students")).status());
     }
 
     @Test
-    public void testName() throws Exception {
-        assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.POST("/student/name","name")).status());
+    public void addStudent() {
+        Student student = new Student();
+        student.setName("rahul");
+        student.setRoll(12);
+        student.setAge(15);
+        assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.POST("/student",student)).status());
     }
 }
