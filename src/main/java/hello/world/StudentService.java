@@ -10,6 +10,7 @@ public class StudentService {
 
     public StudentService() {
         Student student = new Student();
+        student.setId(1);
         student.setName("suraj");
         student.setAge(22);
         student.setRoll(413);
@@ -21,7 +22,14 @@ public class StudentService {
     }
 
     public boolean addStudent(Student student) {
+        student.setId(students.size()+1);
         students.add(student);
+        return true;
+    }
+
+    public boolean removeStudent(int id) {
+        Student student1 = students.stream().filter(student -> student.getId() == id).findFirst().get();
+        students.remove(student1);
         return true;
     }
 }

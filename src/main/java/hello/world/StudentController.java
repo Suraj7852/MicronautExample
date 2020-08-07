@@ -26,4 +26,10 @@ public class StudentController {
         studentService.addStudent(student);
         return student;
     }
+
+    @Delete(uri = "/remove/{id}", consumes = MediaType.APPLICATION_JSON)
+    public boolean removeStudent(int id ) {
+        studentService.removeStudent(id);
+        return true;
+    }
 }

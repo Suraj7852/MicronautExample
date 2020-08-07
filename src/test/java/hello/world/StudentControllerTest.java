@@ -23,9 +23,6 @@ public class StudentControllerTest {
     @Test
     public void addStudent() {
         Student student = new Student();
-        student.setName("rahul");
-        student.setRoll(12);
-        student.setAge(15);
         assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.POST("/student",student)).status());
     }
 }
