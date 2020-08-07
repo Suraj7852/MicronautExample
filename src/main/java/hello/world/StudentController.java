@@ -21,7 +21,7 @@ public class StudentController {
         return HttpResponse.ok(fileToString);
     }
 
-    @Post(value = "/{name}", consumes = MediaType.TEXT_PLAIN)
+    @Post(value = "/{name}", consumes = MediaType.APPLICATION_JSON)
     public HttpResponse<Object> addStudent(@Body String name) throws IOException {
         return HttpResponse.ok(name);
     }

@@ -1,4 +1,5 @@
 package hello.world;
+import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.test.annotation.MicronautTest;
@@ -15,7 +16,12 @@ public class StudentControllerTest {
     RxHttpClient client;
 
     @Test
-    public void testIndex() throws Exception {
-        assertEquals(HttpStatus.OK, client.toBlocking().exchange("/student").status());
+    public void test() throws Exception {
+        assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.GET("/student")).status());
+    }
+
+    @Test
+    public void testName() throws Exception {
+        assertEquals(HttpStatus.OK, client.toBlocking().exchange(HttpRequest.POST("/student/name","name")).status());
     }
 }
