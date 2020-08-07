@@ -2,11 +2,8 @@ package hello.world;
 
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
-import org.apache.commons.io.FileUtils;
+
 import javax.inject.Inject;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -31,5 +28,10 @@ public class StudentController {
     public boolean removeStudent(int id ) {
         studentService.removeStudent(id);
         return true;
+    }
+
+    @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON)
+    public Student updateStudent(@Body Student student, int id) {
+        return studentService.updateStudent(student, id);
     }
 }

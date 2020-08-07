@@ -28,8 +28,24 @@ public class StudentService {
     }
 
     public boolean removeStudent(int id) {
-        Student student1 = students.stream().filter(student -> student.getId() == id).findFirst().get();
-        students.remove(student1);
+        students.remove(getStudent(id));
         return true;
+    }
+
+    public Student updateStudent(Student student, int id) {
+        Student student1 = getStudent(id);
+        student.setId(id);
+        if (student.getName().equals(""))
+            student.setName(student1.getName());
+        if (student.getAge()==0)
+            student.setAge(student1.getAge());
+        if (student.getRoll() == 0)
+            student.setRoll(student1.getRoll());
+        students.set(id-1,student);
+        return student;
+    }
+
+    private Student getStudent(int id) {
+        return students.stream().filter(student -> student.getId() == id).findFirst().get();
     }
 }
