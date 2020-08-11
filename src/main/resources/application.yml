@@ -1,3 +1,6 @@
 micronaut:
   application:
     name: helloWorld
+  server:
+    cors:
+      enabled: true

@@ -17,8 +17,12 @@ public class StudentService {
         students.add(student);
     }
 
-    public List<Student> getAllStudent() {
+    public List<Student> getStudents() {
         return students;
+    }
+
+    public Student getStudent(int id) {
+        return getSingleStudent(id);
     }
 
     public boolean addStudent(Student student) {
@@ -28,12 +32,12 @@ public class StudentService {
     }
 
     public boolean removeStudent(int id) {
-        students.remove(getStudent(id));
+        students.remove(getSingleStudent(id));
         return true;
     }
 
     public Student updateStudent(Student student, int id) {
-        Student student1 = getStudent(id);
+        Student student1 = getSingleStudent(id);
         student.setId(id);
         if (student.getName().equals(""))
             student.setName(student1.getName());
@@ -41,11 +45,15 @@ public class StudentService {
             student.setAge(student1.getAge());
         if (student.getRoll() == 0)
             student.setRoll(student1.getRoll());
-        students.set(id-1,student);
+        students.set(getIndexOfStudent(id),student);
         return student;
     }
 
-    private Student getStudent(int id) {
+    private int getIndexOfStudent(int id) {
+        return students.indexOf(getSingleStudent(id));
+    }
+
+    private Student getSingleStudent(int id) {
         return students.stream().filter(student -> student.getId() == id).findFirst().get();
     }
 }

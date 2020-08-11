@@ -7,31 +7,36 @@ import javax.inject.Inject;
 import java.util.List;
 
 
-@Controller
+@Controller("/students")
 public class StudentController {
 
     @Inject
     StudentService studentService;
 
-    @Get(uri="/students", produces = MediaType.APPLICATION_JSON)
+    @Get(uri="/", produces = MediaType.APPLICATION_JSON)
     public List<Student> getStudents() {
-        return studentService.getAllStudent();
+        return studentService.getStudents();
     }
 
-    @Post(uri = "/student", consumes = MediaType.APPLICATION_JSON)
+    @Get(uri="/{id}", produces = MediaType.APPLICATION_JSON)
+    public Student getStudent(int id) {
+        return studentService.getStudent(id);
+    }
+
+    @Post(uri = "/", consumes = MediaType.APPLICATION_JSON)
     public Student addStudent(@Body Student student ) {
         studentService.addStudent(student);
         return student;
     }
 
-    @Delete(uri = "/remove/{id}", consumes = MediaType.APPLICATION_JSON)
+    @Delete(uri = "/{id}", consumes = MediaType.APPLICATION_JSON)
     public boolean removeStudent(int id ) {
         studentService.removeStudent(id);
         return true;
     }
 
-    @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON)
-    public Student updateStudent(@Body Student student, int id) {
+    @Put(uri = "/{id}", consumes = MediaType.APPLICATION_JSON)
+    public Student updateStudent(int id, @Body Student student) {
         return studentService.updateStudent(student, id);
     }
 }
