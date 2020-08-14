@@ -11,7 +11,7 @@ public class StudentService {
 
     public StudentService() {
         Student student = new Student();
-        student.setId("1");
+        student.setId(getUniqueId());
         student.setName("suraj");
         student.setAge(22);
         student.setRoll(413);
@@ -27,7 +27,7 @@ public class StudentService {
     }
 
     public boolean addStudent(Student student) {
-        student.setId(UUID.randomUUID().toString());
+        student.setId(getUniqueId());
         students.add(student);
         return true;
     }
@@ -55,6 +55,10 @@ public class StudentService {
     }
 
     private Student getSingleStudent(String id) {
-        return students.stream().filter(student -> student.getId() == id).findFirst().get();
+        return students.stream().filter(student -> student.getId().equals(id)).findFirst().get();
+    }
+
+    private String getUniqueId() {
+        return UUID.randomUUID().toString();
     }
 }

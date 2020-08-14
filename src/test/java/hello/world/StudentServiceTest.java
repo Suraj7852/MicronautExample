@@ -17,7 +17,7 @@ class StudentServiceTest {
 
     @Test
     public void getAllStudent() {
-        List<Student> allStudent = studentService.getAllStudent();
+        List<Student> allStudent = studentService.getStudents();
         assertEquals(allStudent.get(0).getName(),"suraj");
     }
 
@@ -30,7 +30,7 @@ class StudentServiceTest {
 
     @Test
     public void removeStudent() {
-        boolean removeStudent = studentService.removeStudent(1);
+        boolean removeStudent = studentService.removeStudent("");
         assertEquals(removeStudent,true);
     }
 
@@ -38,8 +38,14 @@ class StudentServiceTest {
     public void updateStudent() {
         Student student = new Student();
         student.setName("kumar");
-        Student student1 = studentService.updateStudent(student, 1);
+        Student student1 = studentService.updateStudent(student, "");
         assertEquals(student1.getName(),"kumar");
+    }
+
+    @Test
+    public void getSingleStudent() {
+        Student student = studentService.getStudent("1");
+        assertEquals(student.getName(), "suraj");
     }
 
 }

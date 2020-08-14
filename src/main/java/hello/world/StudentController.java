@@ -20,6 +20,7 @@ public class StudentController {
 
     @Get(uri="/{id}", produces = MediaType.APPLICATION_JSON)
     public Student getStudent(String id) {
+        System.out.println(id);
         return studentService.getStudent(id);
     }
 
