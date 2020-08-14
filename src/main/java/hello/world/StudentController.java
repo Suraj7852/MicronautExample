@@ -19,7 +19,7 @@ public class StudentController {
     }
 
     @Get(uri="/{id}", produces = MediaType.APPLICATION_JSON)
-    public Student getStudent(int id) {
+    public Student getStudent(String id) {
         return studentService.getStudent(id);
     }
 
@@ -30,13 +30,13 @@ public class StudentController {
     }
 
     @Delete(uri = "/{id}", consumes = MediaType.APPLICATION_JSON)
-    public boolean removeStudent(int id ) {
+    public boolean removeStudent(String id ) {
         studentService.removeStudent(id);
         return true;
     }
 
     @Put(uri = "/{id}", consumes = MediaType.APPLICATION_JSON)
-    public Student updateStudent(int id, @Body Student student) {
+    public Student updateStudent(String id, @Body Student student) {
         return studentService.updateStudent(student, id);
     }
 }

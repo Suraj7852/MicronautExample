@@ -3,6 +3,7 @@ package hello.world;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Singleton
 public class StudentService {
@@ -10,7 +11,7 @@ public class StudentService {
 
     public StudentService() {
         Student student = new Student();
-        student.setId(1);
+        student.setId("1");
         student.setName("suraj");
         student.setAge(22);
         student.setRoll(413);
@@ -21,22 +22,22 @@ public class StudentService {
         return students;
     }
 
-    public Student getStudent(int id) {
+    public Student getStudent(String id) {
         return getSingleStudent(id);
     }
 
     public boolean addStudent(Student student) {
-        student.setId(students.size()+1);
+        student.setId(UUID.randomUUID().toString());
         students.add(student);
         return true;
     }
 
-    public boolean removeStudent(int id) {
+    public boolean removeStudent(String id) {
         students.remove(getSingleStudent(id));
         return true;
     }
 
-    public Student updateStudent(Student student, int id) {
+    public Student updateStudent(Student student, String id) {
         Student student1 = getSingleStudent(id);
         student.setId(id);
         if (student.getName().equals(""))
@@ -49,11 +50,11 @@ public class StudentService {
         return student;
     }
 
-    private int getIndexOfStudent(int id) {
+    private int getIndexOfStudent(String id) {
         return students.indexOf(getSingleStudent(id));
     }
 
-    private Student getSingleStudent(int id) {
+    private Student getSingleStudent(String id) {
         return students.stream().filter(student -> student.getId() == id).findFirst().get();
     }
 }
